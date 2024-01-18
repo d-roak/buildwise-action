@@ -19,12 +19,9 @@ runs:
       with:
         github-token: ${{inputs.github-token}}
         script: |
-          var fs = require('fs');
-          let buildwise_out;
-          fs.readFile('suggestion', 'utf-8', function (err, data) {
-            if (err) throw err;
-            buildwise_out = JSON.parse(data);
-          });
+          var fs = require('fs')
+          let data = fs.readFileSync('suggestion')
+          let buildwise_out = JSON.parse(data)
           let commits = await github.rest.pulls.listCommits({
             owner: context.repo.owner,
             repo: context.repo.repo,
