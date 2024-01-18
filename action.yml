@@ -32,7 +32,7 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number,
-            commit_id: $(git rev-parse --short HEAD),
+            commit_id: ${{git rev-parse --short HEAD}},
             path: "src/Counter.sol",
             start_line: 5,
             line: 7,
