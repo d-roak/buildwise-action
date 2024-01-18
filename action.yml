@@ -20,9 +20,10 @@ runs:
         github-token: ${{inputs.github-token}}
         script: |
           var fs = require('fs')
-          let data = JSON.stringify(eval(fs.readFileSync('suggestion').toString()))
-          console.log(data)
-          let buildwise_out = JSON.parse(data)
+          let data = fs.readFileSync('suggestion')
+          let sanitized_data = data.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ')
+          console.log(sanitized_data)
+          let buildwise_out = JSON.parse(sanitized_data)
           let commits = await github.rest.pulls.listCommits({
             owner: context.repo.owner,
             repo: context.repo.repo,
