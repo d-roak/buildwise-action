@@ -8,13 +8,11 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
-    - id: git-diff
-      shell: bash
-      run: git diff
     - shell: bash
-      run: echo ${{ steps.git-diff.outputs }}
+      run: git diff > diff.txt
+    - shell: bash
+      run: echo diff.txt
     - uses: actions/github-script@v7
-      id: list-comments
       with:
         github-token: ${{inputs.github-token}}
         script: |
@@ -22,9 +20,9 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-          })
+          }) > diff2.txt
     - shell: bash
-      run: echo ${{ steps.list-comments.outputs.data }}
+      run: echo diff2.txt
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
