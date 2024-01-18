@@ -28,9 +28,11 @@ runs:
       with:
         github-token: ${{inputs.github-token}}
         script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
+          github.rest.pulls.createReviewComment({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '👋 Thanks for reporting!'
+            pull_number: context.issue.number,
+            commit_id: context.sha,
+            line: 6,
+            body: ' uint128 public number3;'
           })
