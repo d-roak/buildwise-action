@@ -1,11 +1,16 @@
 name: "Buildwise GitHub action"
 description: "Use AI for security and gas optimizations with Buildwise"
+inputs:
+  github-token:
+    description: 'GITHUB_TOKEN'
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
     - uses: actions/github-script@v7
       with:
+        github-token: ${{inputs.github-token}}
         script: |
           github.rest.issues.createComment({
             issue_number: context.issue.number,
