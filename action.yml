@@ -35,7 +35,7 @@ runs:
             repo: context.repo.repo,
             pull_number: context.issue.number
           })
-          let commit_sha = commits.data[commits.length - 1].sha
+          let commit_sha = commits.data[commits.data.length - 1].sha
           github.rest.pulls.createReviewComment({
             owner: context.repo.owner,
             repo: context.repo.repo,
