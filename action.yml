@@ -19,7 +19,7 @@ runs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-          }).then((data) => fs.writeFile('diff2.txt', data, (err) => {
+          }).then((data) => fs.writeFile('diff2.txt', JSON.stringify(data), (err) => {
             if (err) throw err;
           }))
     - shell: bash
