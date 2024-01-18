@@ -32,7 +32,8 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number,
-            commit_id: ${{github.sha}},
+            #commit_id: ${{github.sha}},
+            commit_id: "66870910189e2ad44e2d59ce2bee965aa92554ba",
             path: "src/Counter.sol",
             line: 6,
             body: "```suggestion\r\n    uint128 public number3;\r\n```"
