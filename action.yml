@@ -32,8 +32,9 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number,
-            commit_id: "66870910189e2ad44e2d59ce2bee965aa92554ba",
+            commit_id: context.sha,
             path: "src/Counter.sol",
-            line: 6,
-            body: "It is possible to improve the packing of the variables on the 32-bytes slots.\r\n```suggestion\r\n    uint128 public number3;\r\n```"
+            start_line: 5,
+            line: 7,
+            body: "It is possible to improve the packing of the variables on the 32-bytes slots.\r\n```suggestion\r\n    uint256 public number;\r\n    uint128 public number3;\r\n    uint128 public number2;\r\n```"
           })
