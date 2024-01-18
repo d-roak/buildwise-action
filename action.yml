@@ -21,6 +21,7 @@ runs:
         script: |
           var fs = require('fs')
           let data = fs.readFileSync('suggestion')
+          console.log(data)
           let buildwise_out = JSON.parse(data)
           let commits = await github.rest.pulls.listCommits({
             owner: context.repo.owner,
