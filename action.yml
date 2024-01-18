@@ -11,18 +11,22 @@ runs:
     - shell: bash
       run: git diff > diff.txt
     - shell: bash
-      run: echo diff.txt
+      run: cat diff.txt
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
         script: |
-          github.rest.issues.listComments({
+          const fs = require('fs')
+          let comms = github.rest.issues.listComments({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-          }) > diff2.txt
+          })
+          fs.writeFile('diff2.txt', comms, (err) => {
+            if (err) throw err;
+          })
     - shell: bash
-      run: echo diff2.txt
+      run: cat diff2.txt
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
