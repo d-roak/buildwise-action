@@ -23,7 +23,7 @@ runs:
           let data = fs.readFileSync('suggestion')
           let sanitized_data = data.toString()
             .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ')
-            .replace(/[\r\n]/g, '')
+            .replace(/\n/g, '')
           console.log(sanitized_data)
           let buildwise_out = JSON.parse(sanitized_data)
           let commits = await github.rest.pulls.listCommits({
@@ -41,6 +41,6 @@ runs:
               path: s.path,
               start_line: s.start_line,
               line: s.line,
-              body: s.body
+              body: s.body.replace(/\r/g, '\r\n')
             })
           })
