@@ -34,7 +34,7 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number,
-            commit_id: $SHA_SHORT,
+            commit_id: process.env.SHA_SHORT,
             path: "src/Counter.sol",
             start_line: 5,
             line: 7,
