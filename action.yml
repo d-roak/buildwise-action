@@ -16,7 +16,7 @@ runs:
         script: |
           const fs = require('fs')
           github.rest.pulls.listReviewComments({
-            issue_number: context.issue.number,
+            pull_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
           }).then((data) => fs.writeFile('diff2.txt', JSON.stringify(data), (err) => {
