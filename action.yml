@@ -33,6 +33,7 @@ runs:
             repo: context.repo.repo,
             pull_number: context.issue.number,
             commit_id: context.sha,
+            path: "src/Counter.sol",
             line: 6,
-            body: ' uint128 public number3;'
+            body: "```suggestion\r\n    uint128 public number3;\r\n```"
           })
