@@ -9,23 +9,8 @@ runs:
   steps:
     - uses: actions/checkout@v3
     - shell: bash
-      run: git diff
-    - uses: actions/github-script@v7
-      with:
-        github-token: ${{inputs.github-token}}
-        script: |
-          const fs = require('fs')
-          github.rest.pulls.listReviewComments({
-            pull_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-          }).then((data) => fs.writeFile('diff2.txt', JSON.stringify(data), (err) => {
-            if (err) throw err;
-          }))
-    - shell: bash
-      run: cat diff2.txt
-        # - shell: bash
-        #   run: echo "SHA_COMMIT=$(git rev-parse --long HEAD)" >> "$GITHUB_ENV"
+      id: git-diff
+      run: git diff main...HEAD
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
