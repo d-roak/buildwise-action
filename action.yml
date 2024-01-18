@@ -13,26 +13,28 @@ runs:
         git fetch origin main --depth 1
         git diff origin/main > diff
     - shell: bash
-      run: |
-        cat diff
-        curl -X POST -d "$(cat diff)" https://8d33-85-246-66-143.ngrok-free.app/v1/analysis
+      id: buildwise_api
+      run: echo "buildwise_output=$(curl -X POST -d \"$(cat diff)\" https://8d33-85-246-66-143.ngrok-free.app/v1/analysis)" >> $GITHUB_OUTPUT
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
         script: |
+          let buildwise_out = JSON.parse(${{steps.buildwise_api.outputs.buildwise_output}})
           let commits = await github.rest.pulls.listCommits({
             owner: context.repo.owner,
             repo: context.repo.repo,
             pull_number: context.issue.number
           })
           let commit_sha = commits.data[commits.data.length - 1].sha
-          github.rest.pulls.createReviewComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number,
-            commit_id: commit_sha,
-            path: "src/Counter.sol",
-            start_line: 5,
-            line: 7,
-            body: "It is possible to improve the packing of the variables on the 32-bytes slots.\r\n```suggestion\r\n    uint256 public number;\r\n    uint128 public number3;\r\n    uint128 public number2;\r\n```"
-          })
+          buildwise_out.forEach((s) => {
+            github.rest.pulls.createReviewComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              commit_id: commit_sha,
+              path: s.path,
+              start_line: s.start_line,
+              line: s.line,
+              body: s.body
+            })
+          }
