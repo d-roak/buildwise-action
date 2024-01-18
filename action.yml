@@ -10,7 +10,9 @@ runs:
     - uses: actions/checkout@v3
     - shell: bash
       id: git-diff
-      run: git diff main...HEAD
+      run: |
+        git fetch origin main --depth 1
+        git diff main...HEAD
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
