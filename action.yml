@@ -15,7 +15,7 @@ runs:
         github-token: ${{inputs.github-token}}
         script: |
           const fs = require('fs')
-          github.rest.issues.listComments({
+          github.rest.pulls.listComments({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
