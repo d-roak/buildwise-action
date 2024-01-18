@@ -1,0 +1,6 @@
+name: "Buildwise GitHub action"
+description: "Use AI for security and gas optimizations with Buildwise"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
