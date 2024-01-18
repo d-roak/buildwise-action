@@ -14,7 +14,9 @@ runs:
         git diff origin/main > diff
     - shell: bash
       id: buildwise_api
-      run: echo "buildwise_output=$(curl -X POST -d \"$(cat diff)\" https://8d33-85-246-66-143.ngrok-free.app/v1/analysis)" >> $GITHUB_OUTPUT
+      run: |
+        curl -X POST -d "$(cat diff)" https://8d33-85-246-66-143.ngrok-free.app/v1/analysis > suggestion
+        echo "buildwise_output=$(cat suggestion)" >> $GITHUB_OUTPUT
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
