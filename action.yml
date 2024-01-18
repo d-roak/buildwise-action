@@ -24,8 +24,8 @@ runs:
           }))
     - shell: bash
       run: cat diff2.txt
-    - shell: bash
-      run: echo "SHA_COMMIT=$(git rev-parse --long HEAD)" >> "$GITHUB_ENV"
+        # - shell: bash
+        #   run: echo "SHA_COMMIT=$(git rev-parse --long HEAD)" >> "$GITHUB_ENV"
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
