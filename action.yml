@@ -14,7 +14,7 @@ runs:
         git diff origin/main > diff
     - shell: bash
       run: |
-        curl -X POST -d "$(cat diff)" https://8d33-85-246-66-143.ngrok-free.app/v1/analysis > suggestion
+        curl -X POST -d "$(cat diff)" https://e22d-2001-861-3d44-c880-99c2-4ffc-aecc-9c0c.ngrok-free.app/v1/analysis > suggestion
     - uses: actions/github-script@v7
       with:
         github-token: ${{inputs.github-token}}
